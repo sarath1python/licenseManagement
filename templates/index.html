@@ -8,11 +8,69 @@
       <meta name=viewport content="width=device-width,initial-scale=1">
       <link rel=icon href=/favicon.ico>
       <title>Sound licence management</title>
+      <style>
+        .large-header {
+           position: relative;
+           width: 100%;
+           background: #111;
+           overflow: hidden;
+           background-size: cover;
+           background-position: center center;
+           z-index: 1;
+        }
+
+        .demo .large-header {
+           background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/499416/demo-bg.jpg");
+        }
+
+        .main-title {
+           position: absolute;
+           margin: 0;
+           padding: 0;
+           color: #F9F1E9;
+           text-align: center;
+           top: 50%;
+           left: 50%;
+           -webkit-transform: translate3d(-50%, -50%, 0);
+           transform: translate3d(-50%, -50%, 0);
+        }
+
+        .demo .main-title {
+           font-family: Arial;
+           font-size: 1em;
+           font-weight: 100;
+           letter-spacing: 0.1em;
+        }
+
+        .main-title .thin {
+           font-weight: 50;
+        }
+
+        .main-title a {
+          color: #ddd;
+        }
+
+        @media only screen and (max-width: 768px) {
+           .demo .main-title {
+              font-size: 3em;
+           }
+        }
+      </style>
     </head>
     <body>
       <noscript>
         <strong>We're sorry but hackerspace doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
       </noscript>
-      <div id=app></div>
+      <div class="container demo">
+         <div class="content">
+            <div id="large-header" class="large-header">
+               <canvas id="demo-canvas"></canvas>
+                <h6 class="main-title"><span class="thin">Noise licence management App is under construction...</span><br /> Go to <a href="/admin">Admin page</a></h6>
+            </div>
+         </div>
+      </div>
+      <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/499416/TweenLite.min.js"></script>
+      <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/499416/EasePack.min.js"></script>
+      <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/499416/demo.js"></script>
     </body>
   </html>
