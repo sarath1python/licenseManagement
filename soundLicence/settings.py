@@ -144,5 +144,7 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:5000',
     'localhost:8000',
 )
+LOGIN_REDIRECT_URL = 'users'
+
 
 django_heroku.settings(locals())

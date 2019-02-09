@@ -19,11 +19,15 @@ from django.urls import path, include
 from django.views.generic.base import TemplateView
 from rest_framework import routers
 
+
 from users.views import UserViewSet
+from users.views import GroupViewSet
+
 from violation.views import LicenseeViewSet
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'user-types',GroupViewSet)
 router.register(r'licensee', LicenseeViewSet)
 
 
