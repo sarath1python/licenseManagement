@@ -1,0 +1,22 @@
+{
+  "name": "soundLicence",
+  "description": "web page for souncLicence Management for DC.",
+  "image": "heroku/python",
+  "repository": "",
+  "keywords": ["python", "django" ],
+  "addons": [ "heroku-postgresql" ],
+  "env": {
+    "SECRET_KEY": {
+      "description": "secret!!!:):D.",
+      "generator": "secret"
+    }
+  },
+  "environments": {
+    "test": {
+      "scripts": {
+        "test-setup": "python manage.py collectstatic --noinput",
+        "test": "python manage.py test"
+      }
+    }
+  }
+}
