@@ -20,11 +20,12 @@ from django.views.generic.base import TemplateView
 from rest_framework import routers
 
 from users.views import UserViewSet
-from violation.views import LicenseeViewSet
+from violation.views import LicenseViewSet, ViolationViewSet
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
-router.register(r'licensee', LicenseeViewSet)
+router.register(r'license', LicenseViewSet)
+router.register(r'violation', ViolationViewSet)
 
 
 api_urls = [

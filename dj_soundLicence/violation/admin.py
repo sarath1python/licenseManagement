@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Licensee, Violation
+from .models import License, Violation
 
 
 class ViolationAdmin(admin.StackedInline):
@@ -9,9 +9,9 @@ class ViolationAdmin(admin.StackedInline):
 
 
 class LicenceeAdmin(admin.ModelAdmin):
-    list_display = ('serial_number', 'licensee_name', 'mobile_number', 'licence_number', 'licence_status', 'issued_date')
-    search_fields = ('licence_number', 'licensee_name', 'serial_number')
-    list_filter = ('licence_status',)
+    list_display = ('serial_number', 'name', 'mobile_number', 'number', 'status', 'issued_date')
+    search_fields = ('number', 'name', 'serial_number')
+    list_filter = ('status',)
     exclude = ('updated_by',)
     inlines = [
         ViolationAdmin,
@@ -29,4 +29,4 @@ class LicenceeAdmin(admin.ModelAdmin):
         formset.save_m2m()
 
 
-admin.site.register(Licensee, LicenceeAdmin)
+admin.site.register(License, LicenceeAdmin)

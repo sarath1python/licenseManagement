@@ -7,34 +7,37 @@ LICENCE_CHOICES = (
 )
 
 
-class Licensee(models.Model):
+class License(models.Model):
     serial_number = models.CharField(max_length=255)
-    licensee_name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    number = models.CharField(max_length=255)
+    status = models.IntegerField(choices=LICENCE_CHOICES, default='active')
+    location = models.CharField(max_length=400)
     details = models.TextField(help_text="Details of sound agency/institution", blank=True, null=True)
     mobile_number = models.IntegerField()
-    licence_number = models.CharField(max_length=255)
-    licence_status = models.IntegerField(choices=LICENCE_CHOICES, default='active')
     issued_date = models.DateField()
 
+    is_deleted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     updated_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return '{}({})'.format(self.licensee_name, self.serial_number)
+        return '{}({})'.format(self.name, self.serial_number)
 
 
 class Violation(models.Model):
     details = models.TextField()
     date = models.DateTimeField()
-    licensee = models.ForeignKey(Licensee, related_name='violations', on_delete=models.CASCADE)
+    license = models.ForeignKey(License, related_name='violations', on_delete=models.CASCADE)
 
+    is_deleted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     updated_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return '{}({})'.format(self.licensee.licensee_name, self.licensee.serial_number)
+        return '{}({})'.format(self.license.name, self.license.serial_number)
 
 
 

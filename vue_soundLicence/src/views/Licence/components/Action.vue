@@ -24,41 +24,48 @@
         </v-btn>
       </v-list>
     </v-menu>
-    <Detail :showdetails="showDetails" @close="showDetails = false"/>
+    <Detail :showdetails="showDetails" :licence="licence" :action="action" @close="showDetails = false"/>
+    <Violation :showViolation="showViolation" :violations="licence.violations" :action="action" @close="showViolation = false"/>
+    {{licence}}
   </div>
 </template>
 
 <script>
   import Detail from './Detail'
+  import Violation from './Violation'
 
   export default {
     components: {
       Detail,
+      Violation
     },
+    props: ["licence"],
     data: () => ({
       showDetails: false,
+      showViolation: false,
+      action:'View',
       items: [
         { title: 'Edit', icon: 'edit', color: 'green' },
         { title: 'Delete', icon: 'delete', color: 'red' },
-      ],
-        licence_status: 'Active',
-        licencee_number: 123123123,
-        licencee_name: 'John',
-        serial_number: 123123,
-        issued_date: '10th Feb 2019',
-        details: 'Details about the agent',
-        violations: [
-          {date: '9th Feb 2019', details: 'some details'},
-          {date: '10th Feb 2019', details: 'some other details'},
-        ]
+        { title: 'Add violation', icon: 'add', color: 'green' },
+        { title: 'Edit violation', icon: 'edit', color: 'green' },
+        { title: 'Delete violation', icon: 'delete', color: 'red' },
+      ]
     }),
     methods: {
-      detail(item, idx) {
-        console.log('showdetails')
-        console.log(item)
-        console.log(idx)
-        this.showDetails = true;
-        console.log(this.showDetails)
+      detail(__action, __idx) {
+        this.action = __action;
+        console.log(this.action)
+        console.log(this.licence.violations)
+        if (__action.indexOf('violation') > -1) {
+          if (this.licence.violations.length < 1) {
+            this.licence.violations = [{'details': '', 'date': ''}]
+            this.action = 'Add Violation'
+          }
+          this.showViolation = true;
+        } else {
+          this.showDetails = true;
+        }
       }
     }
   }

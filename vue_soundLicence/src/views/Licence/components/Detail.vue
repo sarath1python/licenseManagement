@@ -6,51 +6,64 @@
     >
       <v-card>
         <v-toolbar color="indigo lighten-1" dark>
-          <v-toolbar-title v-model="licencee_name"></v-toolbar-title>
-          <v-toolbar-title v-model="licencee_number"></v-toolbar-title>
+          <v-toolbar-title>{{action}} Licence</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
             <v-btn
               flat="flat"
               @click="$emit('close')"
-            ><v-icon>close</v-icon>close</v-btn>
+            ><v-icon>close</v-icon></v-btn>
           </v-toolbar-items>
         </v-toolbar>
         <v-form>
           <v-container>
             <v-layout row wrap>
+              <v-flex xs6>
+                <v-text-field
+                  label="Licencee name"
+                  id="id"
+                  v-model="licence.name"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs6>
+                <v-text-field
+                  label="Licence number"
+                  id="id"
+                  v-model="licence.number"
+                ></v-text-field>
+              </v-flex>
               <v-flex xs12 md4>
                 <v-text-field
                   label="Serial number"
                   id="id"
-                  v-model="serial_number"
+                  v-model="licence.serial_number"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12 md4>
                 <v-text-field
                   label="Licence status"
                   id="id"
-                  v-model="licence_status"
+                  v-model="licence.status"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12 md4>
                 <v-text-field
                   label="Date of issue"
                   id="id"
-                  v-model="issued_date"
+                  v-model="licence.issued_date"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12>
                 <v-text-field
                   label="Details"
                   id="id"
-                  v-model="details"
+                  v-model="licence.details"
                 ></v-text-field>
               </v-flex>
-              <v-flex xs12>
+              <v-flex xs12 v-if="licence.violations.length > 0">
                 <h4>Violations</h4>
               </v-flex>
-              <v-flex v-for="(violation, idx) in violations" :key="violation.date" xs-3>
+              <v-flex v-for="(violation, idx) in licence.violations" :key="violation.date" xs-3>
                 <v-card>
                   <v-card-title primary-title>
                     {{violation.date}}
@@ -65,11 +78,35 @@
         </v-form>
         <v-card-actions>
           <v-spacer></v-spacer>
+          <template v-if="action == 'Edit'">
+            <v-btn
+            flat="flat"
+            @click="updateLicence"
+          >
+            <v-icon>edit</v-icon>Save
+          </v-btn>
+          </template>
+          <template v-if="action == 'Add'">
+            <v-btn
+            flat="flat"
+            @click="createLicence"
+          >
+            <v-icon>add</v-icon>Add
+          </v-btn>
+          </template>
+          <template v-if="action == 'Delete'">
+            <v-btn
+            flat="flat"
+            @click="deleteLicence"
+          >
+            <v-icon>delete</v-icon>Delete
+          </v-btn>
+          </template>
           <v-btn
             flat="flat"
             @click="$emit('close')"
           >
-            Close
+            Cancel
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -78,27 +115,33 @@
 </template>
 
 <script>
+  import licence from '@/services/licence'
   export default {
     data () {
-      return {
-        licence_status: 'Active',
-        licencee_number: 123123123,
-        licencee_name: 'John',
-        serial_number: 123123,
-        issued_date: '10th Feb 2019',
-        details: 'Details about the agent',
-        violations: [
-          {date: '9th Feb 2019', details: 'some details'},
-          {date: '10th Feb 2019', details: 'some other details'},
-        ]
-      }
+      return {}
     },
-    props: ['showdetails'],
+    props: ['showdetails', 'licence', 'action'],
     computed: {
       dialog: function () {
         return this.showdetails
       }
+    },
+    methods: {
+      createLicence () {
+        licence.createLicence(this.licence).then((data) => {
+            alert(data);
+        });
+      },
+      updateLicence () {
+        licence.updateLicence(this.licence).then((data) => {
+            alert(data);
+        });
+      },
+      deleteLicence () {
+        licence.deleteLicence(this.licence).then((data) => {
+            alert(data);
+        });
+      },
     }
-
   }
 </script>

@@ -1,10 +1,18 @@
 from rest_framework import viewsets
-from .models import Licensee
-from .serializers import LicenseeSerializer
+
+from .models import License, Violation
+from .serializers import LicenseSerializer, ViolationSerializer
 
 
 # ViewSets define the view behavior.
-class LicenseeViewSet(viewsets.ModelViewSet):
-    queryset = Licensee.objects.all()
-    serializer_class = LicenseeSerializer
+class LicenseViewSet(viewsets.ModelViewSet):
+    queryset = License.objects.filter(is_deleted=False)
+    serializer_class = LicenseSerializer
+    page_size_query_param = 'page_size'
+
+
+# ViewSets define the view behavior.
+class ViolationViewSet(viewsets.ModelViewSet):
+    queryset = Violation.objects.filter(is_deleted=False)
+    serializer_class = ViolationSerializer
     page_size_query_param = 'page_size'

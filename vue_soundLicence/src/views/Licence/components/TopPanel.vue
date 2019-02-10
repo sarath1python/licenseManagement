@@ -17,16 +17,24 @@
 	    </v-toolbar-items>
       	<v-spacer></v-spacer>
 	    <v-toolbar-items>
-	      	<v-btn small flat color="success">Add new</v-btn>	    	
+	      	<v-btn small flat color="success" @click="showDetails = true">Add new</v-btn>
+	      	<Detail :showdetails="showDetails" :licence="licence" :action="action" @close="showDetails = false"/>
 	    </v-toolbar-items>
 	</v-toolbar>
 </template>
 
 <script>
+	import Detail from './Detail'
 	export default {
+		components: {
+	      Detail
+	    },
 		data: () => ({
 			items: ['2019', '2018'],
-			value: '2019'
+			value: '2019',
+			showDetails: false,
+			licence: {},
+			action: 'Add'
 		})
 	}
 </script>

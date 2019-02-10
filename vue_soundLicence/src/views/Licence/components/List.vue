@@ -10,25 +10,26 @@
           <template slot="items" slot-scope="props">
             <tr @click="viewDetails($event)" >
               <td>{{ props.item.status }}</td>
-              <td>{{ props.item.licence_number }}</td>
-              <td>{{ props.item.licencee_name }}</td>
+              <td>{{ props.item.number }}</td>
+              <td>{{ props.item.name }}</td>
               <td>{{ props.item.location }}</td>
-              <td>{{ props.item.licence_date }}</td>
+              <td>{{ props.item.issued_date }}</td>
               <td id='action-td'>
-                <Action />
+                <Action :licence="props.item" />
               </td>
             </tr>
           </template>
         </v-data-table>
       </v-flex>
     </v-layout>
-    <Detail :showdetails="showDetails" @close="showDetails = false"/>
+    <Detail :showdetails="showDetails" :licence="licence" @close="showDetails = false"/>
   </v-container>
 </template>
 
 <script>
   import Action from './Action'
   import Detail from './Detail'
+  import licence from '@/services/licence'
 
   export default {
     components: {
@@ -38,87 +39,16 @@
     data () {
       return {
         showDetails: false,
+        licence: {},
         headers: [
-          {
-            text: 'Status',
-            sortable: false,
-            value: 'status',
-            align: 'center' 
-          },
-          { text: 'Licence Number', value: 'licence_number', align: 'center' },
-          { text: 'Owner name', value: 'licencee_name', align: 'center' },
+          { text: 'Status', sortable: false, value: 'status', align: 'center' },
+          { text: 'Licence Number', value: 'number', align: 'center' },
+          { text: 'Owner name', value: 'name', align: 'center' },
           { text: 'Location', value: 'location', align: 'center' },
-          { text: 'Licence date', value: 'licence_date', align: 'center' },
+          { text: 'Licence date', value: 'issued_date', align: 'center' },
           { text: 'Actions', value: '', align: 'center' },
         ],
-        contents: [
-          {
-            status: '3 Warnings',
-            licence_number: 122129,
-            licencee_name: 'Licencee name',
-            location: 'Technopark',
-            licence_date: '10th Jan 2019',
-          },
-          {
-            status: 'Cancelled',
-            licence_number: 122129,
-            licencee_name: 'Licencee name',
-            location: 'Technopark',
-            licence_date: '10th Jan 2019',
-          },
-          {
-            status: 'Approved',
-            licence_number: 122129,
-            licencee_name: 'Licencee name',
-            location: 'Technopark',
-            licence_date: '10th Jan 2019',
-          },
-          {
-            status: 'Approved',
-            licence_number: 122129,
-            licencee_name: 'Licencee name',
-            location: 'Technopark',
-            licence_date: '10th Jan 2019',
-          },
-          {
-            status: 'Approved',
-            licence_number: 122129,
-            licencee_name: 'Licencee name',
-            location: 'Technopark',
-            licence_date: '10th Jan 2019',
-          },
-          {
-            status: 'Approved',
-            licence_number: 122129,
-            licencee_name: 'Licencee name',
-            location: 'Technopark',
-            licence_date: '10th Jan 2019',
-          },
-          {
-            status: 'Approved',
-            licence_number: 122129,
-            licencee_name: 'Licencee name',
-            location: 'Technopark',
-            licence_date: '10th Jan 2019',
-          },
-          {
-            status: 'Approved',
-            licence_number: 122129,
-            licencee_name: 'Licencee name',
-            location: 'Technopark',
-            licence_date: '10th Jan 2019',
-          }
-        ],
-        licence_status: 'Active',
-        licencee_number: 123123123,
-        licencee_name: 'John',
-        serial_number: 123123,
-        issued_date: '10th Feb 2019',
-        details: 'Details about the agent',
-        violations: [
-          {date: '9th Feb 2019', details: 'some details'},
-          {date: '10th Feb 2019', details: 'some other details'},
-        ]
+        contents: []
       }
     },
     methods: {
@@ -127,8 +57,18 @@
           event.preventDefault()
         } else {
           this.showDetails = true;
+          console.log(this.value);
+          this.licence = this.value;
         }
+      },
+      getLicences () {
+        licence.getLicences().then((data) => {
+            this.contents = data.results;
+        });
       }
+    },
+    mounted() {
+      this.getLicences();
     }
   }
 </script>
