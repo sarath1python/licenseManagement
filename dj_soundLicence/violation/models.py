@@ -26,6 +26,7 @@ class Licensee(models.Model):
 
 class Violation(models.Model):
     details = models.TextField()
+    date = models.DateTimeField()
     licensee = models.ForeignKey(Licensee, related_name='violations', on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(auto_now_add=True)

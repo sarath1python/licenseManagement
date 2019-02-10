@@ -1,1 +1,1 @@
-web: gunicorn soundLicence.wsgi --log-file -
+web: gunicorn --pythonpath soundLicence soundLicence.wsgi --log-file -
