@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar 
+  <v-toolbar
     color="indigo darken-1"
     dark
     app
@@ -16,7 +16,7 @@
       <v-btn flat :to="{name: 'dashboard'}" exact>Dashboard</v-btn>
       <v-btn flat :to="{name: 'licence'}" exact>Licences</v-btn>
       <v-spacer></v-spacer>
-      <v-btn flat>Login</v-btn>
+      <v-btn flat :to="{name: 'login'}" exact>{{ Name }}</v-btn>
     </v-toolbar-items>
   </v-toolbar>
 </template>
@@ -26,3 +26,18 @@ color="blue-grey"
       fixed
       app
 clipped-right
+<script>
+import { mapGetters } from 'vuex'
+export default {
+  data() {
+    return{
+    Name: this.$store.state.userDetails.currentUser,
+    }
+    },
+    computed: {
+      ...mapGetters([
+         "nameGetter"])
+  }
+}
+</script>
+>
