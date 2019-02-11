@@ -1,5 +1,5 @@
 const state = {
-    is_loggedIn : true,
+    is_loggedIn : false,
     defaultUser :'Login',
     currentUser : '',
 };
@@ -20,7 +20,6 @@ const actions ={
     async loggIn(context, name){
         await context.commit('loggInUser');
         await context.commit('replaceAccountName',name);
-
     }
 }
 export default {
