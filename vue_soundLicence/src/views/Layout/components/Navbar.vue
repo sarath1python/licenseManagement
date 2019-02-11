@@ -16,7 +16,7 @@
       <v-btn flat :to="{name: 'dashboard'}" exact>Dashboard</v-btn>
       <v-btn flat :to="{name: 'licence'}" exact>Licences</v-btn>
       <v-spacer></v-spacer>
-      <v-btn flat>Login</v-btn>
+      <v-btn flat :to="{name: 'login'}" exact>Login</v-btn>
     </v-toolbar-items>
   </v-toolbar>
 </template>
