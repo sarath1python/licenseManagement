@@ -5,3 +5,4 @@ staticfiles
 *.idea
 db.sqlite3
 vue_soundLicence/node_modules/*
+vue_soundLicence/package-lock.json
