@@ -4,4 +4,3 @@ staticfiles
 .env
 *.idea
 db.sqlite3
-*.vue_soundLicence/node_modules
