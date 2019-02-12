@@ -17,7 +17,7 @@ class License(models.Model):
     taluk = models.CharField(max_length=255)
     details = models.TextField(help_text="Details of sound agency/institution", blank=True, null=True)
     mobile_number = models.CharField(max_length=12)
-    issued_date = models.DateField(auto_now_add=True)
+    issued_date = models.DateField(auto_now=True)
 
     is_deleted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

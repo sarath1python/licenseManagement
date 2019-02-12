@@ -11,12 +11,16 @@ def load_fixture(apps, schema_editor):
     fixture_file = os.path.join(fixture_dir, fixture_filename)
     wb = xlrd.open_workbook(fixture_file)
     License = apps.get_model('violation','License')
+    admin = apps.get_model("auth", "User")
+    default_admin = admin.objects.get(pk=1)
+
     for sh_id in range(wb.nsheets):
         sh = wb.sheet_by_index(sh_id)
         for rownum in range(1, sh.nrows):
             row_value_list = sh.row_values(rownum)
             licence = License(number=row_value_list[1], name=row_value_list[2], shop_details=row_value_list[3], mobile_number=row_value_list[4],address=row_value_list[5],
                                village=row_value_list[6], taluk=row_value_list[7])
+            licence.updated_by = default_admin
             licence.save()
 
 class Migration(migrations.Migration):
